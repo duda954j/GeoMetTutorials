@@ -12,13 +12,13 @@ begin
 
 using Plots
 
-# Primeira série (base)
-plot(1:5, [2,3,4,5,6], label="A", title="Gráfico com varias linhas", lw=2, xlabel="Eixo X", ylabel="Eixo Y")
+# First series (base)
+plot(1:5, [2,3,4,5,6], label="A", title="Graph with multiple lines", lw=2, xlabel="X Axis", ylabel="Y Axis")
 
-# Adiciona segunda série
+# Add second series
 plot!(1:5, [4,5,6,7,8], label="B", lw=2, color=:red)
 
-# Adiciona terceira série
+# Add third series
 plot!(1:5, [1.3,2.3,3.5,4.5,5.5], label="C", lw=2, color=:green)
 end
 
@@ -31,234 +31,233 @@ html"""<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxkyFOO9E
 
 # ╔═╡ e9451e63-0f3e-4783-85c0-7c57c07f6f78
 md"""
-# 📘 Guia Básico de Julia
-Este notebook Pluto mostra os comandos básicos de Julia para iniciantes: sintaxe, operações, leitura de dados, gráficos entre outros.
+# 📘 Basic Julia Guide
+This Pluto notebook shows basic Julia commands for beginners: syntax, operations, data reading, plotting, and more.
 """
 
 # ╔═╡ 9dfcfee1-186f-4695-a0b5-2c67bd453e26
  md"""
-## 🔹1. Sintaxe Básica
+## 🔹1. Basic Syntax
 """
 
 # ╔═╡ 1a097a0e-bce0-4b3c-904c-05683769b9e8
 begin
-### Variáveis e Tipos 
-a = 10             # Inteiro
+### Variables and Types
+a = 10             # Integer
 b = 3.14           # Float
 c = "Julia"        # String
-d = true           # Booleano
+d = true           # Boolean
 
-println("a: $a, b: $b, c: $c, d: $d") #forma de printar em Julia
+println("a: $a, b: $b, c: $c, d: $d") # How to print in Julia
 end
 
 # ╔═╡ 9fc934ea-6fe2-47d0-844a-feb605caecfb
 begin
-### Operações Aritméticas
-soma = 2 + 3
-subtracao = 10 - 4
-multiplicacao = 3 * 7
-divisao = 20 / 4
-potencia = 2^3
+### Arithmetic Operations
+suma = 2 + 3
+subtraction = 10 - 4
+multiplication = 3 * 7
+division = 20 / 4
+power = 2^3
 modulo = 10 % 3
 
-println("$soma, $subtracao, $multiplicacao, $divisao, $potencia, $modulo")
+println("$suma, $subtraction, $multiplication, $division, $power, $modulo")
 
 end
 
 # ╔═╡ 760c62db-5f17-4dac-8faa-e2d8badcc541
 begin
-###Condicionais
+### Conditionals
 x = 7
 if x > 5
-    "Maior que 5"
+    "Greater than 5"
 elseif x == 5
-    "Igual a 5"
+    "Equal to 5"
 else
-    "Menor que 5"
+    "Less than 5"
 end
 end
 
 # ╔═╡ aaaf1fc3-4497-4741-a10d-e2771671825d
 md"""
-##   2. Estruturas de Repetição
+## 2. Loops
 """
 
 # ╔═╡ 9da9c1a8-fd90-4dd5-a28c-4e4a54f4288f
 begin
-###Laço `for`
+### For Loop
 for i in 1:5
-    println("Valor de i: ", i)
+    println("Value of i: ", i)
 end
 end
 
 # ╔═╡ 936250d7-24d1-40cd-a7eb-7c8352878eb9
 begin
-###Laço `while`
-contador = 1
-while contador <= 3
-    println("Contador: ", contador)
-    contador += 1
+### While Loop
+counter = 1
+while counter <= 3
+    println("Counter: ", counter)
+    counter += 1
 end
 end
 
 # ╔═╡ 5499ddba-e52d-425d-864e-8275a1829558
 md"""
-##  3. Funções
+## 3. Functions
 """
 
 # ╔═╡ 18b50dab-fc6e-4ea2-9463-4fbcb3de8995
 begin
-    function saudacao(nome)
-        return "Olá, $(nome)!"
+    function greeting(name)
+        return "Hello, $(name)!"
     end
     
-    saudacao("Gabriel")  # Esta será a saída
+    greeting("Gabriel")  # This will be the output
 end
 
 # ╔═╡ f5f490a9-1918-4b2a-9cdc-ba742f6b84fb
 begin
-###Função com Parâmetros Padrão
-function multiplicar(a, b=2)
+### Function with Default Parameters
+function multiply(a, b=2)
     return a * b
 end
 
-multiplicar(4), multiplicar(4, 3)
+multiply(4), multiply(4, 3)
 end
 
 # ╔═╡ 5c3920a7-eb66-4013-a651-9a6d0c8ffbcb
 begin
-### Função Anônima, não tem um nome, só é usada em um instante
+### Anonymous Function, it has no name, only used instantly
 (x -> x^2)(2)
 end
 
 # ╔═╡ 214940e6-0f33-4699-b160-40e19d2dec7b
-###Múltiplos despachos
-### A mesma função pode ter comportamentos diferentes dependendo dos tipos de dados que você fornece.
+### Multiple Dispatch
+### The same function can behave differently depending on the data types you provide.
 begin
-function falar(x::String)
-    println("Você disse: $x")
+function speak(x::String)
+    println("You said: $x")
 end
 
-function falar(x::Int)
-    println("Você digitou o número $x")
+function speak(x::Int)
+    println("You typed the number $x")
 end
 
-falar(54)
-falar("Oi!")
+speak(54)
+speak("Hi!")
 end
 
 # ╔═╡ ae1fa675-8998-4881-9fc0-4eb0ab051f5d
 md"""
-## 4. Vetores e Matrizes
+## 4. Vectors and Matrices
 """
 
 # ╔═╡ cbdb5cba-b219-4f15-9fff-e76315000978
 begin
-### Vetores
+### Vectors
 v = [1, 2, 3, 4]
-push!(v, 5) #adiciona o número 5 ao final do vetor
-v[2] = 10
+push!(v, 5) # Adds the number 5 to the end of the vector
+v[2] = 10   # Changes the second element to 10
 v
 end
 
 # ╔═╡ 475f4238-48d3-47eb-b369-aa210f0f5005
 begin
-### Matrizes
+### Matrices
 m = [1 2; 3 4]
-m[1, 2] = 99 #substitui o elemento da primeira linha segunda coluna por 99
+m[1, 2] = 99 # Changes the element at row 1, column 2 to 99
 m
 end
 
 # ╔═╡ ad558721-9c3d-40c4-9fcd-72ca4c659573
 md"""
-##  5. Compreensão de Lista
-#### Serve para transformar uma lista(array), com base em parâmetros.
+## 5. List Comprehension
+#### It is used to transform a list (array) based on conditions.
 """
 
 # ╔═╡ 398f39ac-efe8-412c-8b38-7deaa2afbe05
 begin
-pares = [x for x in 1:10 if x % 2 == 0]
-pares
+evens = [x for x in 1:10 if x % 2 == 0]
+evens
 end
 
 # ╔═╡ 97d253f0-60ba-40a2-ac8e-90732c2a13d5
 md"""
-##  6. Pacotes
+## 6. Packages
 """
 
 # ╔═╡ 893485ed-132c-4a41-a9cd-8fcd615c8ddd
 md"""
 ## 7. Structs
-### É um tipo de dado que permite agrupar variáveis de diferentes tipos sob um mesmo nome.
+### It is a data type that allows grouping variables of different types under the same name.
 """
 
 # ╔═╡ 33675c34-fa76-41c2-a8b1-c9c20a78d46e
 begin
-### Criando um novo tipo
-struct Pessoa
-	nome::String
-	idade::Int
+### Creating a new type
+struct Person
+	name::String
+	age::Int
 end
 	
-pessoa = Pessoa("Arthur", 16)
+person = Person("Arthur", 16)
 	
-println("Nome: $(pessoa.nome)")
-println("Idade: $(pessoa.idade)")
+println("Name: $(person.name)")
+println("Age: $(person.age)")
 end
 
 # ╔═╡ e506bcf7-04b8-4b5c-a056-179297456f36
 md"""
-## 7. Arquivos
-
+## 8. Files
 """
 
 # ╔═╡ 9355bbb0-d5d6-45e1-9e54-d453b1caf5f1
-# Cria o arquivo "exemplo.txt"
-open("exemplo.txt", "w") do f
-    write(f, "Linha 1: Olá, Julia!\nLinha 2: Arquivo de teste.")
+# Creates the file "example.txt"
+open("example.txt", "w") do f
+    write(f, "Line 1: Hello, Julia!\nLine 2: Test file.")
 end
 
 # ╔═╡ 1da6d1b7-7146-4697-935f-683a1d83c7ad
 begin
-	# Lê e exibe o conteúdo do arquivo "exemplo.txt"
-conteudo = read("exemplo.txt", String)
-println("Conteúdo do arquivo:")
-println(conteudo)
+	# Reads and displays the contents of "example.txt"
+content = read("example.txt", String)
+println("File content:")
+println(content)
 end
 
 # ╔═╡ 0f9ce8f3-46a9-44d8-8955-d99457581b24
 begin
-	# Verifica se o arquivo existe e tenta remover
+	# Checks if the file exists and tries to remove it
 	
-if isfile("arquivo_teste.txt")  #isfile verifica se o arquivo existe
+if isfile("test_file.txt")  # isfile checks if the file exists
     try
-        rm("arquivo_teste.txt")  #remove o arquivo
-        println("Arquivo removido com sucesso.")
+        rm("test_file.txt")  # removes the file
+        println("File successfully removed.")
     catch e
-        println("Erro ao tentar remover: ", e)
+        println("Error trying to remove: ", e)
     end
 else
-    println("Arquivo já não existe.")
+    println("File does not exist.")
 end
 end
 
 # ╔═╡ 11664421-7bcb-4bba-8f3d-0cf50ff2bc47
 md"""
-##  10. Manipulação de DataFrames
+## 9. DataFrame Manipulation
 """
 
 # ╔═╡ ae3aa451-0ba8-4c0b-902b-59d9b90ee7e0
 df = DataFrame(
-    Nome = ["Ana", "João", "Carlos"],
-    Idade = [23, 35, 42],
-    Altura = [1.65, 1.78, 1.72]
+    Name = ["Ana", "João", "Carlos"],
+    Age = [23, 35, 42],
+    Height = [1.65, 1.78, 1.72]
 )
 
 # ╔═╡ 82cc1e9d-3b5c-47be-8f99-69b97c653708
-df.Idade .= df.Idade .+ 5 #Incrementa em 5 as idades do dataframe
+df.Age .= df.Age .+ 5 # Increases the ages in the dataframe by 5
 
 # ╔═╡ fddf9f97-a0a1-41c0-951f-0541d7bd1bc0
-df[:, :Idade] #mostra a Idade por completo
+df[:, :Age] # Shows the entire Age column
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """
