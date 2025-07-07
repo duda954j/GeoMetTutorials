@@ -41,13 +41,17 @@ end
 
 # ╔═╡ 0e77d9b3-6308-4f15-ba3d-314691daa9ec
 begin
-	#calculates the specific energy with the Rittinger method (n = 1.0)
-	df.E_specific_rittinger = calculate_specific_energy_charles(df; K=1000.0, n=1.0)
-	first(df[:, [:F80, :P80, :E_specific_rittinger]], 5)
+	
+	df.E_specific_morrell = calculate_specific_energy_morrell(df)
+	first(df[:, [:F80, :P80, :Mi, :E_specific_morrell]], 5)
+
 end
 
 # ╔═╡ b96852ec-ce90-4f31-81e5-8ac77aa63026
-
+begin 
+	using Plots
+	scatter(df.Mi, df.E_specific_morrell, xlabel="Mi (kWh/t)", ylabel="Energia Específica (kWh/t)", title="Método de Morrell")
+end
 
 # ╔═╡ 7423d256-8ca6-45ae-9c63-f47efdbdab42
 
