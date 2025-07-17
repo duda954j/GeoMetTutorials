@@ -1,41 +1,72 @@
 ### A Pluto.jl notebook ###
 # v0.20.13
 
-using GeoMet
+using CSV
 using DataFrames
+using GeoMet
+using DecisionTree
+using Random
+using Statistics
 
 # ╔═╡ 1
-"""
-# Test of function random_forest_model
+md"""
+# Random Forest Model with GeoMet Dataset
 
-This notebook tests the `random_forest_model` function from the GeoMet package.
+This notebook demonstrates how to use the `random_forest_model` function from the GeoMet package with the dataset available at [Zenodo 6587598](https://zenodo.org/records/6587598).
 """
 
 # ╔═╡ 2
-# Create a simple example DataFrame
-df = DataFrame(
-    feature1 = [1.0, 2.0, 3.0, 4.0, 5.0],
-    feature2 = [2.5, 3.5, 1.5, 4.5, 5.5],
-    target = [10.0, 20.0, 15.0, 25.0, 30.0]
-)
+md"""
+## Load the Dataset
+
+We'll load the `comminution.csv` file, which contains measurements associated with the DWT and BWI indexes.
+"""
 
 # ╔═╡ 3
-# Show the DataFrame
-df
+url = "https://zenodo.org/record/6587598/files/comminution.csv?download=1"
+download_path = "comminution.csv"
+download(url, download_path)
+
+df = CSV.File(download_path) |> DataFrame
 
 # ╔═╡ 4
-# Train the Random Forest model to predict :target
-model = random_forest_model(df, :target; n_trees=10)
+md"""
+## Data Overview
+
+Let's take a look at the first few rows of the dataset to understand its structure.
+"""
+
+first(df, 5)
 
 # ╔═╡ 5
-# Show the trained model
-model
+md"""
+## Preprocessing
+
+We'll filter out rows with missing values and ensure all columns are of numeric type.
+"""
+
+df_clean = dropmissing(df)
+df_clean = select(df_clean, Not([:SampleID, :Location]))
 
 # ╔═╡ 6
-# Example: predict the target for new data
-new_data = [3.0 2.0]  # feature1=3.0, feature2=2.0
-prediction = DecisionTree.predict(model, new_data)
+md"""
+## Train a Random Forest Model
+
+We'll train a Random Forest model using all columns except the target as features.
+"""
+
+target = :BWI
+model = random_forest_model(df_clean, target)
 
 # ╔═╡ 7
-# Show the prediction
-prediction
+md"""
+## Model Evaluation
+
+Let's evaluate the model's performance using Mean Absolute Error (MAE).
+"""
+
+y_true = df_clean[:, target]
+y_pred = predict(model, Matrix(df_clean[:, Not(target)]))
+
+mae = mean(abs.(y_true .- y_pred))
+mae
